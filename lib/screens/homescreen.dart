@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:myshop/Widgets/productgrid.dart';
 import 'package:myshop/models/Product.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -46,10 +47,21 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("SHOP"),
-      ),
-     body: GridView(gridDelegate: gridDelegate)
-    );
+        appBar: AppBar(
+          title: const Text("SHOP"),
+        ),
+        body: GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+              //horizontal ma how many things
+              crossAxisCount: 2,
+              //spacing between two items in horizontal manner
+              mainAxisSpacing: 6,
+              crossAxisSpacing: 10),
+          itemCount: listofProducts.length,
+          itemBuilder: (BuildContext context, int index) {
+            return ProductGrid(listofProducts[index].id,
+                listofProducts[index].title, listofProducts[index].imageUrl);
+          },
+        ));
   }
 }
